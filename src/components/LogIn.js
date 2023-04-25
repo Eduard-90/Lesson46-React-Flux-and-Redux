@@ -1,20 +1,33 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const LogIn = () => {
   const dispatchFunc = useDispatch();
-  const isLoggedIn = useSelector((state)=> state.isLoggedIn)
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const submit = (e) => {
     e.preventDefault();
-    dispatchFunc({type: 'logIn'})
-  }
+    dispatchFunc({ type: "logIn" });
+  };
+  const logOut = (e) => {
+    e.preventDefault();
+    dispatchFunc({ type: "logOut" });
+  };
   return (
-    !isLoggedIn && <form onSubmit={submit} >
-      <label htmlFor="email">Email</label>
-      <input id="email" name="email"/>
-      <button type="submit">Log in</button>
-    </form>
-  )
-}
+    <>
+      {!isLoggedIn && (
+        <form onSubmit={submit}>
+          <label htmlFor="email">Email</label>
+          <input id="email" name="email" />
+          <button type="submit">Log in</button>
+        </form>
+      )}
+      {isLoggedIn && (
+        <button onClick={logOut} className="logout">
+          Log Out
+        </button>
+      )}
+    </>
+  );
+};
 
-export default LogIn
+export default LogIn;
